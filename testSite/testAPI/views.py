@@ -18,6 +18,7 @@ from rest_framework.status import (
 )
 
 
+##Vista de Lista (no requiere token)
 class PropList(generics.ListCreateAPIView):
 	queryset = propiedad.objects.all()
 	serializer_class = PropSerializer
@@ -28,7 +29,7 @@ class PropList(generics.ListCreateAPIView):
 		obj = get_object_or_404(queryset,pk=self.kwargs['pk'],) 
 		return obj
 
-
+#Vista a Detalle (requiere token, puede manipular la informacion)
 class PropDetail(APIView):
 	permission_classes = (IsAuthenticated,)
 	def get(self, request, pk):
@@ -58,27 +59,21 @@ class PropDetail(APIView):
 
 		return Response(serializer.data)
 
+#Vista de autenticación
 class Auth(APIView):
 	def post(self,request, format=None):
 		signin_serializer = SigninSerializer(data = request.data)
 		if not signin_serializer.is_valid():
 			return Response(signin_serializer.errors, status = HTTP_400_BAD_REQUEST)
-
-
 		user = authenticate(
 			username = signin_serializer.data['username'],
 			password = signin_serializer.data['password'] 
 		)
 		if not user:
 			return Response({'detail': 'Invalid Credentials or activate account'}, status=HTTP_404_NOT_FOUND)
-        
-		#TOKEN STUFF
-		token, _ = Token.objects.get_or_create(user = user)
-    
-    #token_expire_handler will check, if the token is expired it will generate new one
-		is_expired, token = token_expire_handler(token)     # The implementation will be described further
-		#user_serialized = UserSerializer(user)
 
+		token, _ = Token.objects.get_or_create(user = user)
+		is_expired, token = token_expire_handler(token)     
 		return Response({
 		'user': signin_serializer.data['username'], 
 		'expires_in': expires_in(token),

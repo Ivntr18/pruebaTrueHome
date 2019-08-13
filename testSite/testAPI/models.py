@@ -6,7 +6,13 @@ from rest_framework.authtoken.models import Token
 from django.db import models
 from django.core.validators import MinValueValidator
 
-# Create your models here.
+#Modelo de Propiedad con los requisitos establecidos
+#nombre max 50 caracteres
+#direccion max 100 caracteres
+#superficie positivo y máximo 5 digitos
+#email max 50 caracteres
+
+
 class propiedad(models.Model):
 	val=MinValueValidator(0)
 	nombre = models.CharField(max_length=50)

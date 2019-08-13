@@ -15,19 +15,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from testSite.views import saludo, dameFecha,calculaEdad
 from testAPI.views import *
 from rest_framework.authtoken import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('saludo/', saludo),
-    path('hora/', dameFecha),
-    path('param/<int:edad>/<int:agno>', calculaEdad),
     path('API/', PropList.as_view()),
     path('API2/<int:pk>', PropDetail.as_view()),
     path('API2/', PropDetail.as_view()),
-    path('token22/', views.obtain_auth_token),
     path('token/', Auth.as_view() ),      
 
 

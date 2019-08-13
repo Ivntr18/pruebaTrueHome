@@ -1,22 +1,20 @@
 from rest_framework.authtoken.models import Token
-
-
 from datetime import timedelta
 from django.utils import timezone
 from django.conf import settings
+
+##Se maneja el tiempo de vida de cada token
 
 def expires_in(token):
 	time_elapsed = timezone.now() - token.created
 	left_time = timedelta(days = settings.TOKEN_EXPIRED_AFTER_DAYS) - time_elapsed
 	return left_time
 
-# token checker if token expired or not
+# Checa si el token ya expiró
 def is_token_expired(token):
 	return expires_in(token) < timedelta(seconds = 0)
 
-# if token is expired new token will be established
-# If token is expired then it will be removed
-# and new one with different key will be created
+# si el token expira se establece uno nuevo
 def token_expire_handler(token):
 	is_expired = is_token_expired(token)
 	if is_expired:
