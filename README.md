@@ -11,17 +11,23 @@ python testSite/manager.py runserver localhost:8000
 python testWeb/manager.py runserver localhost:8001
 
 
+# Página Web
+
+La url donde se tiene la página web es la siguiente:
+
+http://localhost:8001/home/
+
 # API
 
 Para usar el API se tienen las siguientes urls:
 
-http://localhost:8000/API - Muestra la lista de todos los objetos en la DB (no requiere login) Método GET
+http://localhost:8000/API/ - Muestra la lista de todos los objetos en la DB (no requiere login) Método GET
 
-http://localhost:8000/API2 - Para añadir un nuevo registro (requiere login) Método POST
+http://localhost:8000/API2/ - Para añadir un nuevo registro (requiere login) Método POST
 
-http://localhost:8000/API2/? - Para eliminar o modificar un registro (requiere login) Métodos  DELETE, PATCH
+http://localhost:8000/API2/? - Para eliminar o modificar un registro (requiere login) Métodos  DELETE, PATCH, y donde ? es el id del elemento a borrar o modificar
 
-# Autenticacion
+# Autenticación
 
 Las credenciales para realizar el login son:
 
