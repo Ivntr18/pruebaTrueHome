@@ -14,7 +14,7 @@
  </head>
 <body>
 <div>
-   <button id="apireq">click me </button> 
+   
 </div>
 <div id="jsonresp" style="margin-top: 30px">
 
@@ -22,22 +22,43 @@
 <script>
   
 $(document).ready(function(){
-$.ajax({
-  method: 'GET',
-  url: 'http://localhost:8000/API/',
-  dataType: 'json',
-  success: function (data) {
-    for (var i=0;i<data.length;i++){
-      $("#jsonresp").append("<div id='iter"+i+"' class='center'>");
-      $("#iter"+i).append("<p align='center'>Nombre: "+data[i].nombre+ "</p>");
-      $("#iter"+i).append("<p align='center'>Direccion: "+data[i].direccion+ "</p>");
-      $("#iter"+i).append("<p align='center'>Superficie: "+data[i].superficie+ "</p>");
-      $("#iter"+i).append("<p align='center'>Email: "+data[i].email+ "</p>");
-      $("#jsonresp").append("<hr>");
+  $.ajax({
+    method: 'GET',
+    url: 'http://localhost:8000/API/',
+    dataType: 'json',
+    success: function (data) {
+      for (var i=0;i<data.length;i++){
+        $("#jsonresp").append("<div id='iter"+i+"' class='center'>");
+        $("#iter"+i).append("<p align='center'>Nombre: "+data[i].nombre+ "</p>");
+        $("#iter"+i).append("<p align='center'>Dirección: "+data[i].direccion+ "</p>");
+        $("#iter"+i).append("<p align='center'>Superficie: "+data[i].superficie+ " m2</p>");
+        $("#iter"+i).append("<p align='center'>Email: "+data[i].email+ "</p>");
+        $("#jsonresp").append("<br>");
+        
 
+      }
     }
-  }
+  });
 });
+
+
+
+$( "#sesion" ).click(function() {
+  var parametros = {
+                "username" : "ivan",
+                "password" : "1234"
+        };
+  $.ajax({
+    method: 'POST',
+    url: 'http://localhost:8000/token/',
+    data: parametros,
+    dataType: 'json',
+    success: function(data){
+      console.log(data);
+      alert("Data: " + data + "\nStatus: ");
+    }
+    
+  });
 });
 
 
